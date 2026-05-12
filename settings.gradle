@@ -1,0 +1,3 @@
+rootProject.name = 'notification-hub'
+
+include 'domain', 'application', 'infrastructure', 'boot'

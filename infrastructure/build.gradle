@@ -1,0 +1,11 @@
+dependencies {
+    implementation project(':domain')
+    implementation project(':application')
+
+    implementation 'org.springframework:spring-web:6.2.2'
+    implementation 'org.springframework.data:spring-data-jpa:3.4.2'
+    implementation 'org.springframework.kafka:spring-kafka:3.3.1'
+    implementation 'org.freemarker:freemarker:2.3.33'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.18.2'
+    runtimeOnly 'org.postgresql:postgresql:42.7.5'
+}
