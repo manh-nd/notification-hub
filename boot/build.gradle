@@ -1,0 +1,15 @@
+plugins {
+    id 'application'
+}
+
+dependencies {
+    implementation project(':domain')
+    implementation project(':application')
+    implementation project(':infrastructure')
+
+    implementation 'org.springframework.boot:spring-boot-starter:3.4.2'
+}
+
+application {
+    mainClass = 'com.example.notificationhub.boot.NotificationHubApplication'
+}
