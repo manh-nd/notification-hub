@@ -9,6 +9,12 @@ public record DynamicRule(TenantId tenantId, List<RouteBranch> branches, String 
         if (tenantId == null) {
             throw new IllegalArgumentException("tenantId must not be null");
         }
+        if (branches == null) {
+            throw new IllegalArgumentException("branches must not be null");
+        }
+        if (branches.stream().anyMatch(branch -> branch == null)) {
+            throw new IllegalArgumentException("branches must not contain null elements");
+        }
         branches = List.copyOf(branches);
         if (defaultChannelType == null || defaultChannelType.isBlank()) {
             throw new IllegalArgumentException("defaultChannelType must not be blank");
@@ -16,6 +22,9 @@ public record DynamicRule(TenantId tenantId, List<RouteBranch> branches, String 
     }
 
     public String evaluateRouting(Map<String, Object> facts) {
+        if (facts == null) {
+            throw new IllegalArgumentException("facts must not be null");
+        }
         return branches.stream()
                 .filter(branch -> branch.condition().evaluate(facts))
                 .map(RouteBranch::channelType)
