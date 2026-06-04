@@ -18,11 +18,15 @@ public record ConditionNode(String factKey, Operator operator, String expectedVa
 
     @Override
     public boolean evaluate(Map<String, Object> facts) {
+        if (facts == null) {
+            throw new IllegalArgumentException("facts must not be null");
+        }
+
         Object actual = facts.get(factKey);
         return switch (operator) {
             case EQUALS -> Objects.toString(actual, null) != null && Objects.toString(actual).equals(expectedValue);
             case NOT_EQUALS -> !Objects.equals(Objects.toString(actual, null), expectedValue);
-            case CONTAINS -> Objects.toString(actual, "").contains(expectedValue);
+            case CONTAINS -> expectedValue != null && Objects.toString(actual, "").contains(expectedValue);
             case IN -> expectedValue != null
                     && actual != null
                     && Arrays.stream(expectedValue.split(","))
